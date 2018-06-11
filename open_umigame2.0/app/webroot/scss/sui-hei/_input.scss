@@ -1,0 +1,192 @@
+/********************************************************************
+ * text
+ ********************************************************************/
+input[type=text]{
+   border-radius: 5px;
+   -moz-border-radius: 5px;
+   -webkit-border-radius: 5px;
+   -o-border-radius: 5px;
+   -ms-border-radius: 5px;
+   border:#a9a9a9 1px solid;
+   -moz-box-shadow: inset 0 0 5px rgba(0,0,0,0.2),0 0 2px rgba(0,0,0,0.3);
+   -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2),0 0 2px rgba(0,0,0,0.3);
+   box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2),0 0 2px rgba(0,0,0,0.3);
+   height: 25px;
+   padding: 5px;
+   font-size: 16px;
+   margin-bottom: 10px;
+
+   width: 80% ; /* IE8以下とAndroid4.3以下用フォールバック */
+   width: -moz-calc(100% - 12px) ;
+   width: -webkit-calc(100% - 12px) ;
+   width: calc(100% - 12px) ;
+}
+
+input[type=text]:focus {
+   border:solid 1px #20b2aa;
+}
+
+input[type=text], select {
+   outline: none;
+}
+input[type=password]{
+  border-radius: 5px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -o-border-radius: 5px;
+  -ms-border-radius: 5px;
+  border:#a9a9a9 1px solid;
+  -moz-box-shadow: inset 0 0 5px rgba(0,0,0,0.2),0 0 2px rgba(0,0,0,0.3);
+  -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2),0 0 2px rgba(0,0,0,0.3);
+  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2),0 0 2px rgba(0,0,0,0.3);
+  height: 25px;
+  padding: 5px;
+  font-size: 16px;
+  margin-bottom: 10px;
+
+  width: 80% ; /* IE8以下とAndroid4.3以下用フォールバック */
+  width: -moz-calc(100% - 12px) ;
+  width: -webkit-calc(100% - 12px) ;
+  width: calc(100% - 12px) ;
+}
+
+input[type=password]:focus {
+  border:solid 1px #20b2aa;
+}
+
+input[type=password], select {
+  outline: none;
+}
+input[type=checkbox]{
+    width: 25px;
+    height: 25px;
+   border-radius: 5px;
+   -moz-border-radius: 5px;
+   -webkit-border-radius: 5px;
+   -o-border-radius: 5px;
+   -ms-border-radius: 5px;
+   border:#a9a9a9 1px solid;
+   -moz-box-shadow: inset 0 0 5px rgba(0,0,0,0.2),0 0 2px rgba(0,0,0,0.3);
+   -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2),0 0 2px rgba(0,0,0,0.3);
+   box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2),0 0 2px rgba(0,0,0,0.3);
+   padding: 8px;
+   cursor:pointer;
+   margin-bottom: 10px;
+   color:#333;
+   font-size: 16px;
+   background:#F7F5E4;
+}
+input[type=checkbox]:hover{
+    background:#dfdfdf;
+}
+/********************************************************************
+ * textarea
+ ********************************************************************/
+textarea{
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -o-border-radius: 5px;
+    -ms-border-radius: 5px;
+    border:#a9a9a9 1px solid;
+    -moz-box-shadow: inset 0 0 5px rgba(0,0,0,0.2),0 0 2px rgba(0,0,0,0.3);
+    -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2),0 0 2px rgba(0,0,0,0.3);
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2),0 0 2px rgba(0,0,0,0.3);
+    height: 100px;
+    padding: 5px;
+    font-size: 16px;
+    margin-bottom: 10px;
+
+    width: 80% ; /* IE8以下とAndroid4.3以下用フォールバック */
+    width: -moz-calc(100% - 10px) ;
+    width: -webkit-calc(100% - 10px) ;
+    width: calc(100% - 10px) ;
+}
+
+textarea:focus {
+    border:solid 1px #20b2aa;
+}
+
+textarea, select {
+    outline: none;
+}
+/********************************************************************
+ * button
+ ********************************************************************/
+select{
+   border-radius: 5px;
+   -moz-border-radius: 5px;
+   -webkit-border-radius: 5px;
+   -o-border-radius: 5px;
+   -ms-border-radius: 5px;
+   border:#a9a9a9 1px solid;
+   -moz-box-shadow: inset 0 0 5px rgba(0,0,0,0.2),0 0 2px rgba(0,0,0,0.3);
+   -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2),0 0 2px rgba(0,0,0,0.3);
+   box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2),0 0 2px rgba(0,0,0,0.3);
+   padding:8px;
+   cursor:pointer;
+   margin-bottom: 10px;
+   color:#333;
+   background:#F7F5E4;
+}
+input[type=submit]{
+   border-radius: 5px;
+   -moz-border-radius: 5px;
+   -webkit-border-radius: 5px;
+   -o-border-radius: 5px;
+   -ms-border-radius: 5px;
+   border:#a9a9a9 1px solid;
+   -moz-box-shadow: inset 0 0 5px rgba(0,0,0,0.2),0 0 2px rgba(0,0,0,0.3);
+   -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2),0 0 2px rgba(0,0,0,0.3);
+   box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2),0 0 2px rgba(0,0,0,0.3);
+   padding: 8px;
+   cursor:pointer;
+   margin-bottom: 10px;
+   color:#333;
+   font-size: 16px;
+   background:#F7F5E4;
+}
+input[type=submit]:hover{
+    background:#dfdfdf;
+}
+input[type=file]{
+  border-radius: 5px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -o-border-radius: 5px;
+  -ms-border-radius: 5px;
+  border:#a9a9a9 1px solid;
+  -moz-box-shadow: inset 0 0 5px rgba(0,0,0,0.2),0 0 2px rgba(0,0,0,0.3);
+  -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2),0 0 2px rgba(0,0,0,0.3);
+  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2),0 0 2px rgba(0,0,0,0.3);
+  width: 200px;
+  padding:10px;
+  cursor:pointer;
+  margin-bottom: 10px;
+  color:#333;
+  font-size: 16px;
+  background:#F7F5E4;
+}
+input[type=file]:hover{
+   background:#dfdfdf;
+}
+button{
+  border-radius: 5px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -o-border-radius: 5px;
+  -ms-border-radius: 5px;
+  border:#a9a9a9 1px solid;
+  -moz-box-shadow: inset 0 0 5px rgba(0,0,0,0.2),0 0 2px rgba(0,0,0,0.3);
+  -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2),0 0 2px rgba(0,0,0,0.3);
+  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2),0 0 2px rgba(0,0,0,0.3);
+  padding:10px;
+  cursor:pointer;
+  margin-bottom: 10px;
+  color:#333;
+  font-size: 16px;
+  background:#F7F5E4;
+}
+button:hover{
+   background:#dfdfdf;
+}

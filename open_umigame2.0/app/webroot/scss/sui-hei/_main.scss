@@ -1,0 +1,54 @@
+.titlelogo {
+    position: relative;
+    top: -20px;
+    text-align: center;
+    margin-bottom: 30px;
+    width: 100%;
+}
+.js-masonry {
+    margin-left: auto;
+    margin-right: auto;
+}
+.item {
+    width: 394px;
+    word-wrap: break-word;
+    word-break: break-all;
+    text-align: left;
+    border-radius: 10px;
+}
+
+//
+.premium_box {
+    width: 259px;
+    float: left;
+    display: inline-block;
+    margin: 10px;
+    padding: 20px;
+
+    background-color: #f8f7ed;
+    box-shadow:0px 3px 10px #000
+                ,0px 0px 300px #f6f4df inset;
+    max-width: 1050px;
+    font-size: 18px;
+    line-height: 1.7em;
+    font-family: serif;
+
+    border-style: solid;
+    border-width: 15px 15px 16px 16px;
+    -moz-border-image: url(../img/box.png) 15 15 16 16 repeat;
+    -webkit-border-image: url(../img/box.png) 15 15 16 16 repeat;
+    -o-border-image: url(../img/box.png) 15 15 16 16 repeat;
+    border-image: url(../img/box.png) 15 15 16 16 fill repeat;
+}
+
+.otherbox {
+    text-align: center;
+    font-family: serif;
+    font-size: 23px;
+    font-weight: bold;
+    padding: 10px;
+    width: 48% ; /* IE8以下とAndroid4.3以下用フォールバック */
+    width: -moz-calc(50% - 75px) ;
+    width: -webkit-calc(50% - 75px) ;
+    width: calc(50% - 75px) ;
+}
