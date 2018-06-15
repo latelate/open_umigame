@@ -190,6 +190,12 @@ echo "<div class=\"r lobby_r\">\n";
         echo "</div>\n";
     echo "</div>\n";
 
+    ?>
+    <div class="gakudake">
+    <a class="twitter-timeline" data-height="400" href="https://twitter.com/open_umigame2?ref_src=twsrc%5Etfw">Tweets by open_umigame2</a>
+    <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+    </div>
+    <?php
 echo "</div>\n";
 echo "<div class=\"clear\"></div>\n";
 

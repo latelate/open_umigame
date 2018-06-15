@@ -280,6 +280,22 @@ class SecretController extends AppController {
                 }
             }
 
+            //タイトルのsave
+            if (!empty($this->data)){
+                $this->Secretroom->set($this->data);
+                if ($this->Secretroom->validates()){
+                    $data = $this->data;
+                    if (!empty($data['Secretroom']['title'])){
+                        if (!empty(AuthComponent::user('id'))){
+                            $this->Secretroom->id = $read;
+                            $save['Secretroom']['title'] = $data['Secretroom']['title'];
+                            $this->Secretroom->save($save);
+                            Cache::delete('cache_roomdata_'.$param_moto);
+                            $this->redirect('show/' . $param);
+                        }
+                    }
+                }
+            }
             //説明文のsave
             if (!empty($this->data)){
                 $this->Secretroom->set($this->data);

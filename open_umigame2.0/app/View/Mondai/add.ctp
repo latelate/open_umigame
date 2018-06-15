@@ -37,6 +37,10 @@ echo "<div class=\"black-bar margin_b50\"><h1>出題する</h1></div>";
         echo $this->Form->textarea('Mondai.kaisetu',array("cols" => "50","rows" => "5",'placeholder'=>'解説を入力してください。(編集可)※必須'));
         echo "<Font Color=\"#ff0000\"><b>" . $this->Form->error('Mondai.kaisetu') . "</b></Font>\n";
         echo "</td></tr>\n";
+        echo "<tr><td>\n";
+        echo $this->Form->text('Mondai.comment',array("size" => "50",'placeholder'=>'一言コメントを追加できます。(編集不可)※任意'))."\n";
+        echo "<Font Color=\"#ff0000\"><b>" . $this->Form->error('Mondai.title') . "</b></Font>\n";
+        echo "</td></tr>\n";
         echo "<tr class=\"zikan kage\"><td>\n";
         echo "<b>制限時間を設定(任意)</b>";
         echo $this->Form->radio("Mondai.stime",array(

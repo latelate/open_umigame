@@ -16,11 +16,7 @@ echo $this->Paginator->next(__('次', true).'＞＞', array('tag'=>'span class="
 echo $this->Paginator->last('最後',array('tag'=>'span class="pagi2"') );
 echo "</div>\n";
 echo "<div id=\"mondai-pagination\" class=\"pagination\">";
-echo "<div class=\"sort\"><b>総問題数：" . Cache::read('mondaicount') . "問</div>";
-echo "<div class=\"sort\">" . $this->Paginator->sort('genre','ジャンル別') . "</div>";
-echo "<div class=\"sort\">" . $this->Paginator->sort('created','日付順') . "</div>";
-echo "<div class=\"sort\">" . $this->Paginator->sort('endtime','解決順') . "</div>";
-echo "<div class=\"sort\">" . $this->Paginator->sort('modified','更新順') . "</b></div>";
+echo "<div class=\"sort\"><b>総問題数：" . Cache::read('mondaicount') . "問</b></div>";
 echo "<div class=\"clear\"></div>\n";
 echo "</div>\n";
 echo "</div>\n";
