@@ -1,4 +1,5 @@
 <?php
+App::import('Vendor', 'OAuth/OAuthClient');
 config('app');
 class MondaiController extends AppController {
 
@@ -105,7 +106,7 @@ class MondaiController extends AppController {
                 'order' => array(
                         'Temple.modified' => 'desc'
                 ),
-                'limit' => 10
+                'limit' => 20
         ));
         $this->set('newtemp',$newtemp);
 
@@ -1034,53 +1035,175 @@ class MondaiController extends AppController {
                                         $save = $data['Mondai'];
                                         $this->Mondai->save($save);
 
-
                                         $bot_data = $this->Mondai->find('first',array(
-                                                'conditions' => array(
-                                                'Mondai.id' => $this->Mondai->getLastInsertID()),
-                                                'fields' => array('Mondai.id','Mondai.title','Mondai.content','Mondai.genre','Mondai.twitter','Mondai.created'),
+                                                'conditions' => array('Mondai.id' => $this->Mondai->getLastInsertID()),
+                                                'fields' => array('Mondai.id','Mondai.title','Mondai.content','Mondai.comment',
+                                                'Mondai.genre','Mondai.twitter','Mondai.created','User.name',
+                                                'Mondai.scount','Mondai.stime','Mondai.yami','Mondai.itijinanashi'),
                                                 'recursive' => '-1'
                                             )
                                         );
-                                        // twitteroauth.phpを読み込む。パスはあなたが置いた適切な場所に変更してください
-                                        require_once("twitteroauth.php");
-                                        // OAuthオブジェクト生成
-                                        $to = new TwitterOAuth(DEFINE_consumer_key,DEFINE_consumer_secret,DEFINE_access_token,DEFINE_access_token_secret);
-                                        //短縮URL
-                                        $long_url = "https://late-late.jp/mondai/show/" . h($bot_data['Mondai']['id']);
-                                        $req = "http://api.bit.ly/shorten?login=kameriki&apiKey=R_fd5a25e13a800ae816dcbfa5eeb19055&version=2.0.1&longUrl=".$long_url;
-                                        $contents = file_get_contents($req);
-                                        if(isset($contents)) {
-                                            $url = json_decode($contents, true);
+
+                                        $tweet_text = null;
+                                        if ($bot_data['Mondai']['itijinanashi'] == 2) {//一時的名無し
+                                            $tweet_text = $tweet_text."名無しさんによる";
+                                        } else {
+                                            $tweet_text = $tweet_text."[".$bot_data['User']['name']."]さんによる";
                                         }
+                                        $mondaicount = $this->Mondai->find('count');
+                                        $tweet_text = $tweet_text.$mondaicount."杯目のスープ！\n";
+                                        if (!empty($bot_data['Mondai']['comment'])) {
+                                            $tweet_text = $tweet_text."コメント「".$bot_data['Mondai']['comment']."」";
+                                        }
+                                        $tweet_text = $tweet_text."\n\n";
+                                        switch ($bot_data['Mondai']['genre']) {
+                                            case '1':
+                                                $tweet_text = $tweet_text. "【ウミガメ】";
+                                                break;
+                                            case '2':
+                                                $tweet_text = $tweet_text. "【20の扉】";
+                                                break;
+                                            case '3':
+                                                $tweet_text = $tweet_text. "【亀夫君】";
+                                                break;
+                                            case '4':
+                                                $tweet_text = $tweet_text. "【新・形式】";
+                                                break;
+                                        }
+                                        if (empty($bot_data['Mondai']['stime']) and empty($bot_data['Mondai']['scount'])){
+                                            $tweet_text = $tweet_text. "[制限なし]";
+                                        }
+                                        //制限
+                                        if (!empty($bot_data['Mondai']['stime']) or !empty($bot_data['Mondai']['scount'])){
+                                            $tweet_text = $tweet_text."[";
+                                        }
+                                        if (!empty($bot_data['Mondai']['stime'])) {
+                                            $tweet_text = $tweet_text. "時間制限が";
+                                            switch ($bot_data['Mondai']['stime']) {
+                                                case '+30 minute':
+                                                    $tweet_text = $tweet_text. "30分";
+                                                    break;
+                                                case '+1 hour':
+                                                    $tweet_text = $tweet_text. "1時間";
+                                                    break;
+                                                case '+3 hour':
+                                                    $tweet_text = $tweet_text. "3時間";
+                                                    break;
+                                                case '+6 hour':
+                                                    $tweet_text = $tweet_text. "6時間";
+                                                    break;
+                                                case '+12 hour':
+                                                    $tweet_text = $tweet_text. "12時間";
+                                                    break;
+                                                case '+1 day':
+                                                    $tweet_text = $tweet_text. "1日";
+                                                    break;
+                                                case '+3 day':
+                                                    $tweet_text = $tweet_text. "3日";
+                                                    break;
+                                                case '+7 day':
+                                                    $tweet_text = $tweet_text. "1週間";
+                                                    break;
+                                            }
+                                        }
+                                        if (!empty($bot_data['Mondai']['stime']) and !empty($bot_data['Mondai']['scount'])){
+                                            $tweet_text = $tweet_text. "：";
+                                        }
+                                        if (!empty($bot_data['Mondai']['scount'])) {
+                                            $tweet_text = $tweet_text. "".$bot_data['Mondai']['scount'] . "回の質問制限";
+                                        }
+                                        if (!empty($bot_data['Mondai']['stime']) or !empty($bot_data['Mondai']['scount'])){
+                                            $tweet_text = $tweet_text. "]";
+                                        }
+                                        if ($bot_data['Mondai']['yami'] == 2) {
+                                            $tweet_text = $tweet_text. "[闇スープ]";
+                                        }
+                                        $tweet_text = $tweet_text. "\n\nOPENウミガメ2.0「".DEFINE_sitename."」問題URL：".
+                                        "https://late-late.jp/mondai/show/" . h($bot_data['Mondai']['id']).
+                                        "\n\n#ウミガメのスープ";
+
+                                        $jpg = "img/bf.jpg";
+                                        $afjpg= "img/af.jpg";
+                                        $font = "font/SourceHanSerif-Bold.otf";
+
+                                        $image = imagecreatefromjpeg($jpg);
+                                        $color = imagecolorallocate($image, 243,235,162);
                                         $titleCount = mb_strlen(h($bot_data['Mondai']['title']), "UTF-8" );//文字数カウント
                                         if( $titleCount > 20 ){
-                                            $tweet_title = "『".mb_substr(h($bot_data['Mondai']['title']), 0, 17, "UTF-8") . "...』\n\n";
+                                            imagettftext($image, 20, 0, 25, 60, $color, $font, $bot_data['Mondai']['title']);
                                         } else {
-                                            $tweet_title = "『".h($bot_data['Mondai']['title'])."』\n\n";
+                                            imagettftext($image, 35, 0, 25, 70, $color, $font, $bot_data['Mondai']['title']);
                                         }
-                                        $contentCount = mb_strlen(h($bot_data['Mondai']['content']), "UTF-8" );//文字数カウント
-                                        if( $contentCount > 70 ){
-                                            $tweet_content = mb_substr(h($bot_data['Mondai']['content']), 0, 67, "UTF-8") . "...\n".
-                                            "\nOPENウミガメ2.0「".DEFINE_sitename."」問題URL：".$url['results']["https://late-late.jp/mondai/show/" . h($bot_data['Mondai']['id'])]['shortUrl'].
-                                            "\n#ウミガメのスープ";
-                                        } else {
-                                            $tweet_content = h($bot_data['Mondai']['content']) . "\n" .
-                                            "\nOPENウミガメ2.0「".DEFINE_sitename."」問題URL：".$url['results']["https://late-late.jp/mondai/show/" . h($bot_data['Mondai']['id'])]['shortUrl'].
-                                            "\n#ウミガメのスープ";
-                                        }
-                                        $array = $tweet_title.$tweet_content;
-                                        // TwitterへPOSTする。パラメーターは配列に格納する
-                                        // in_reply_to_status_idを指定するのならば array("status"=>"@hogehoge reply","in_reply_to_status_id"=>"0000000000"); とする。
+                                        imagejpeg($image, "img/af.jpg", 100);
 
-                                        $req = $to->OAuthRequest("https://api.twitter.com/1.1/statuses/update.json","POST",array("status"=>$array));
+                                        $text = str_replace(array("\r", "\n"), '', $bot_data['Mondai']['content']);
+                                        $returnText = $text;
+                                        $text_len = mb_strlen($text, "utf-8");
+                                        $insert_len = mb_strlen("\n", "utf-8");
+                                        $contentCount = mb_strlen(h($bot_data['Mondai']['content']), "UTF-8" );//文字数カウント
+                                        if( $contentCount > 800 ){//800~
+                                            $num = 90;
+                                        } elseif( $contentCount > 400 ) {//400~800
+                                            $num = 62;
+                                        } elseif( $contentCount > 300 ) {//300~400S
+                                            $num = 50;
+                                        } elseif( $contentCount > 200 ) {//200~300
+                                            $num = 40;
+                                        } elseif( $contentCount > 100 ) {//100~200
+                                            $num = 35;
+                                        } elseif( $contentCount > 60 ) {//60~100
+                                            $num = 33;
+                                        } else {//1~50
+                                            $num = 30;
+                                        }
+                                        for($i=0; ($i+1)*$num<$text_len; $i++) {
+                                            $current_num = $num+$i*($insert_len+$num);
+                                            $returnText = preg_replace("/^.{0,$current_num}+\K/us", "\n", $returnText);
+                                        }
+                                        $jpg = "img/af.jpg";
+                                        $image = imagecreatefromjpeg($jpg);
+                                        $color = imagecolorallocate($image, 0,0,0);
+                                        $font = "font/SourceHanSerif-ExtraLight.otf";
+                                        if( $contentCount > 800 ){//800~
+                                            imagettftext($image, 8, 0, 30, 140, $color, $font, $returnText);
+                                        } elseif( $contentCount > 400 ) {//400~800
+                                            imagettftext($image, 12, 0, 30, 140, $color, $font, $returnText);
+                                        } elseif( $contentCount > 300 ) {//300~400
+                                            imagettftext($image, 14, 0, 30, 150, $color, $font, $returnText);
+                                        } elseif( $contentCount > 200 ) {//200~300
+                                            imagettftext($image, 18, 0, 30, 160, $color, $font, $returnText);
+                                        } elseif( $contentCount > 100 ) {//100~200
+                                            imagettftext($image, 20, 0, 30, 160, $color, $font, $returnText);
+                                        } elseif( $contentCount > 60 ) {//60~100
+                                            imagettftext($image, 22, 0, 30, 260, $color, $font, $returnText);
+                                        } else {//1~50
+                                            imagettftext($image, 25, 0, 30, 270, $color, $font, $returnText);
+                                        }
+                                        imagejpeg($image, "img/af.jpg", 100);
+
+                                        $client = new OAuthClient(
+                                            DEFINE_consumer_key, // アプリケーションのConsumer key
+                                            DEFINE_consumer_secret // アプリケーションのConsumer secret
+                                        );
+                                        $client->postMultipartFormData(
+                                            DEFINE_access_token,    // アプリケーションのaccess token
+                                            DEFINE_access_token_secret,   // アプリケーションのaccess token secret
+                                            'https://api.twitter.com/1.1/statuses/update_with_media.json',
+                                            array(
+                                                'media[]' => 'img/af.jpg'
+                                            ),
+                                            array(
+                                                'status' => $tweet_text
+                                            )
+                                        );
+
 
                                         // TwitterへPOSTするときのパラメーターなど詳しい情報はTwitterのAPI仕様書を参照してください
                                         $this->Mondai->id = $this->Mondai->getLastInsertID();
                                         $save['Mondai']['twitter'] = '1';
                                         $this->Mondai->save($save);
 
-                                        $this->redirect('/mondai');
+                                        $this->redirect('/mondai/show/'.$this->Mondai->getLastInsertID());
                                     }
                                 } else {//１０分連続投稿規制
                                     $tajyuu = 1;

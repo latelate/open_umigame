@@ -44,6 +44,15 @@ if (empty($data)){
     }
 
     echo "<div class=\"black-bar margin_b50\"><h1>" . h($data['Secretroom']['title']) . "</h1></div>";
+    if (AuthComponent::user('id') == $data['Secretroom']['user_id']){
+        if(!empty(AuthComponent::user('id'))){
+            echo $this->Form->create(null,array('type'=>'post','url'=>'./show/' . h(urldecode($param))))."\n";
+            echo "    ".$this->Form->text("Secretroom.title",array('placeholder'=>'タイトルを編集する'))."\n";
+            echo "    ".$this->Form->submit("タイトルの編集")."\n";
+            echo $this->Form->end()."\n";
+            echo "<br />";
+        }
+    }
     echo "<div class=\"border background_siro inline_block r\">\n";
     echo "<div class=\"r align_l\">\n";
     echo "作成者：<b>".h($data['User']['name'])."</b><br />";
@@ -96,15 +105,7 @@ if (empty($data)){
     echo "</div>\n";
     echo nl2br(h($data['Secretroom']['content']));
     //フォーム
-    if ($data['Secretroom']['editflg'] == 1){
-        if (AuthComponent::user('id') == $data['Secretroom']['user_id']){
-            echo $this->Form->create(null,array('type'=>'post','url'=>'./show/' . h(urldecode($param))))."\n";
-            echo "    ".$this->Form->textarea("Secretroom.content",array("cols" => "50","rows" => "5"))."\n";
-            echo "    ".$this->Form->submit("部屋の説明、自由欄の編集")."\n";
-            echo $this->Form->end()."\n";
-            echo "<br />";
-        }
-    } else {
+    if ($data['Secretroom']['editflg'] == 2 or AuthComponent::user('id') == $data['Secretroom']['user_id']){
         if(!empty(AuthComponent::user('id'))){
             echo $this->Form->create(null,array('type'=>'post','url'=>'./show/' . h(urldecode($param))))."\n";
             echo "    ".$this->Form->textarea("Secretroom.content",array("cols" => "50","rows" => "5"))."\n";

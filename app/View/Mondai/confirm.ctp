@@ -123,6 +123,7 @@ $arr = $data;
     echo "        ".$this->Form->hidden('Mondai.title', array('value' => $data['Mondai']['title']))."\n";
     echo "        ".$this->Form->hidden('Mondai.content', array('value' => $data['Mondai']['content']))."\n";
     echo "        ".$this->Form->hidden('Mondai.kaisetu', array('value' => $data['Mondai']['kaisetu']))."\n";
+    echo "        ".$this->Form->hidden('Mondai.comment', array('value' => $data['Mondai']['comment']))."\n";
     echo "        ".$this->Form->hidden('Mondai.stime', array('value' => $data['Mondai']['stime']))."\n";
     echo "        ".$this->Form->hidden('Mondai.scount', array('value' => $data['Mondai']['scount']))."\n";
     echo "        ".$this->Form->hidden('Mondai.textflg', array('value' => $data['Mondai']['textflg']))."\n";
