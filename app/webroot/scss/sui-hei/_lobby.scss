@@ -1,0 +1,131 @@
+.lobbychat {
+    //width: 470px;
+    color: #fff;
+    background-image: url(../img/button-8195.png);
+    padding: 10px;
+    margin-bottom: 10px;
+    margin-left: 5px;
+    margin-right: 5px;
+    a {
+        color: #dfdfdf;
+        text-decoration: underline;
+    }
+    a:hover {
+        color: #dfdfdf;
+        text-decoration: none;
+    }
+}
+.kokutichat {
+    color: #fff;
+    background-image: url(../img/button-8195-kokuti.png);
+    padding: 10px;
+    margin-bottom: 10px;
+    margin-left: 5px;
+    margin-right: 5px;
+    a {
+        color: #dfdfdf;
+        text-decoration: underline;
+    }
+    a:hover {
+        color: #dfdfdf;
+        text-decoration: none;
+    }
+}
+.real-wrap {
+    width: 1050px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.real_l {
+    width: 519px;
+}
+.real_r {
+    width: 513px;
+}
+.realtime {
+    //margin-left: 2px;
+    margin-bottom: 7px;
+    .realimg {
+        margin-top: 10px;
+        width: 344px;
+    }
+
+}
+.lobby_l {
+    width: 524px;
+}
+.lobby_r {
+    width: 526px;
+}
+.admin-waku {
+    margin-top: 10px;
+    height: 78px;
+    margin-left: 3px;
+    border: solid 1px #000;
+    padding: 5px;
+}
+.lobbybox {
+    border: solid 1px #000;
+    padding: 10px;
+    margin-bottom: 10px;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+.gaku {
+    width: 990px;
+    margin-bottom: 15px;
+    padding: 10px;
+    margin-left: 5px;
+    margin-right: 5px;
+    box-shadow:0px 3px 10px #000
+            ,0px 0px 300px #f6f4df inset;
+
+    border-style: solid;
+    border-width: 15px 15px 16px 16px;
+    -moz-border-image: url(../img/box.png) 15 15 16 16 repeat;
+    -webkit-border-image: url(../img/box.png) 15 15 16 16 repeat;
+    -o-border-image: url(../img/box.png) 15 15 16 16 repeat;
+    border-image: url(../img/box.png) 15 15 16 16 fill repeat;
+}
+.cindy {
+
+}
+
+.mondai_table_w {
+   border: solid 1px #bfbfbf;
+   border-collapse: collapse;
+   margin-bottom: 10px;
+   margin-right: 10px;
+   width: 100%;
+   th {
+       width: 10%;
+       padding: 5px;
+   }
+   tr {
+       border:  1px solid #bfbfbf;
+   }
+   td {
+       width: 5%;
+       padding: 5px;
+   }
+   th[title="title"] {
+       width: 5%;
+       background-color: #D7D7C4;
+   }
+   th[title="name"] {
+       width: 20%;
+       background-color: #D7D7C4;
+   }
+   td[title="name"] {
+       width: 10%;
+   }
+   td[title="content"] {
+       width: 70%;
+   }
+   td[title="mondai"] {
+       width: 40%;
+   }
+   td[title="date"] {
+       width: 10%;
+   }
+}
